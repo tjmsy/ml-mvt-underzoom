@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "ml-mvt-underzoom",
   "version": "0.1.0",
   "description": "MapLibre underzoom helper — serve MVT at a lower zoom than third-party PMTiles/XYZ sources provide",
@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tjmsy/ml-mvt-underzoom.git"
+    "url": "git+https://github.com/tjmsy/ml-mvt-underzoom.git"
   },
   "bugs": {
     "url": "https://github.com/tjmsy/ml-mvt-underzoom/issues"
