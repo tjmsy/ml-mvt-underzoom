@@ -1,0 +1,75 @@
+﻿{
+  "name": "ml-mvt-underzoom",
+  "version": "0.1.0",
+  "description": "MapLibre underzoom helper — serve MVT at a lower zoom than third-party PMTiles/XYZ sources provide",
+  "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tjmsy/ml-mvt-underzoom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tjmsy/ml-mvt-underzoom/issues"
+  },
+  "homepage": "https://github.com/tjmsy/ml-mvt-underzoom/",
+  "author": {
+    "name": "tjmsy"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "demo": "vite",
+    "demo:build": "vite build",
+    "bench": "npm run build && node scripts/bench-underzoom.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "maplibre-gl": "^5.0.0 || ^6.0.0",
+    "pmtiles": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "maplibre-gl": {
+      "optional": true
+    },
+    "pmtiles": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@mapbox/vector-tile": "^2.0.4",
+    "pbf": "^4.0.1",
+    "vt-pbf": "^3.1.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.3.0",
+    "maplibre-gl": "^6.3.0",
+    "pmtiles": "^4.3.0",
+    "rimraf": "^6.1.3",
+    "typescript": "^5.9.2",
+    "vite": "^6.4.3",
+    "vitest": "^3.2.7"
+  },
+  "keywords": [
+    "mvt",
+    "mapbox-vector-tile",
+    "maplibre",
+    "pmtiles",
+    "underzoom",
+    "vector-tiles"
+  ]
+}

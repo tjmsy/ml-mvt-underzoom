@@ -1,0 +1,7 @@
+node_modules/
+dist/
+demo-dist/
+*.tsbuildinfo
+.DS_Store
+AGENTS.md
+docs/internal
