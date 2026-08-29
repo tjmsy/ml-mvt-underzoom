@@ -59,21 +59,14 @@ body {
   flex-shrink: 0;
 }
 
+.swatch.blda {
+  height: 14px;
+  background: #bcbd22;
+  border: 1px solid #7f7f0f;
+  box-shadow: none;
+}
+
 .swatch.rdedg {
   background: #d62728;
   box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d62728;
-}
-
-.swatch.rdcompt {
-  background: #1f77b4;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #1f77b4;
-}
-
-.toggle {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  cursor: pointer;
-  user-select: none;
 }

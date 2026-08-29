@@ -28,8 +28,12 @@ export type BuildUnderzoomMvtOptions = {
   sourceLayers?: string[];
   /** MVT extent for merge output (default 4096). */
   extent?: number;
-  /** Tile-coordinate buffer for clamping merged vertices (default 64). */
+  /** Tile-coordinate buffer on parent exterior edges only (default 64). */
   buffer?: number;
+  /** Union polygon halves on internal merge seams (default false). */
+  dissolveSeams?: boolean;
+  /** Layers to dissolve at internal seams (e.g. ["BldA"]). Required when dissolveSeams is true. */
+  dissolveSeamsLayers?: string[];
   /** Abort in-flight tile reads and merge when aborted. */
   signal?: AbortSignal;
   /** Called when a child MVT tile fails to parse during merge. */
@@ -44,6 +48,8 @@ export type RegisterMvtUnderzoomProtocolOptions = {
   sourceLayers?: string[];
   extent?: number;
   buffer?: number;
+  dissolveSeams?: boolean;
+  dissolveSeamsLayers?: string[];
   onTileError?: (error: unknown, coord: TileCoord) => void;
 };
 

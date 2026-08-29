@@ -56,6 +56,8 @@ export function registerMvtUnderzoomProtocol(
         sourceLayers: options.sourceLayers,
         extent: options.extent,
         buffer: options.buffer,
+        dissolveSeams: options.dissolveSeams,
+        dissolveSeamsLayers: options.dissolveSeamsLayers,
         signal: abortController?.signal,
         onTileError: options.onTileError,
       });

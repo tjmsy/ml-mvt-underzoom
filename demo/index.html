@@ -11,16 +11,14 @@
       <h1>ml-mvt-underzoom demo</h1>
       <p>
         GSI optimal_bvmap PMTiles (z16 source) displayed at z15 via
-        <code>mvt-underzoom://</code>. Debug colors (not production style).
+        <code>mvt-underzoom://</code> over
+        <a href="https://maps.gsi.go.jp/development/#pale" target="_blank" rel="noopener">淡色地図</a>.
+        Debug colors (not production style).
       </p>
       <ul class="legend">
+        <li><span class="swatch blda"></span>BldA (building outline — seam check)</li>
         <li><span class="swatch rdedg"></span>RdEdg (road edge)</li>
-        <li><span class="swatch rdcompt"></span>RdCompt (all vt_code; demo shows full layer)</li>
       </ul>
-      <label class="toggle">
-        <input type="checkbox" id="dim-basemap" checked />
-        Dim background map (easier to see overlay)
-      </label>
       <p id="status">loading…</p>
     </div>
     <div id="map"></div>

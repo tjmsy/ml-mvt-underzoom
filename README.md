@@ -165,6 +165,22 @@ const scheme = registerMvtUnderzoomProtocol(maplibregl, {
 
 Any `z` below `sourceZoom` is supported (one step, two steps, etc.). Each parent tile reads `4^(sourceZoom − z)` source tiles. Wider gaps cost more I/O per request.
 
+### Polygon layers
+
+When underzooming **polygon** layers (buildings, land use, etc.), child tiles are clipped at internal merge seams so quadrant halves do not overlap. For cleaner outlines across those seams, opt in to seam dissolve:
+
+```ts
+registerMvtUnderzoomProtocol(maplibregl, {
+  sourceZoom: 16,
+  readTile,
+  sourceLayers: ["BldA"],
+  dissolveSeams: true,
+  dissolveSeamsLayers: ["BldA"], // only these layers; omit dissolveSeams to skip union
+});
+```
+
+`dissolveSeams` defaults to `false` — enable only for layers that need it, since union work runs on the main thread. Line-only sources (roads) do not need this.
+
 ## License
 
 MIT

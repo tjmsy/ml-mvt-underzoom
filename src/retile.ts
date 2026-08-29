@@ -29,6 +29,8 @@ export async function buildUnderzoomMvt(
     sourceLayers,
     extent = DEFAULT_MVT_EXTENT,
     buffer = DEFAULT_MVT_BUFFER,
+    dissolveSeams,
+    dissolveSeamsLayers,
     signal,
     onTileError,
   } = options;
@@ -71,6 +73,8 @@ export async function buildUnderzoomMvt(
     sourceLayers,
     extent,
     buffer,
+    dissolveSeams,
+    dissolveSeamsLayers,
     onTileError,
   });
 }

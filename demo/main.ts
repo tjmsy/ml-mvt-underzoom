@@ -13,10 +13,12 @@ const protocol = "mvt-underzoom";
 
 const GSI_OPTIMAL_BVMAP_PMTILES =
   "https://cyberjapandata.gsi.go.jp/xyz/optimal_bvmap-v1/optimal_bvmap-v1.pmtiles";
-const SOURCE_LAYERS = ["RdEdg", "RdCompt"] as const;
+const SOURCE_LAYERS = ["BldA", "RdEdg"] as const;
+
+const BLDA_FILL = "#bcbd22";
+const BLDA_OUTLINE = "#7f7f0f";
 
 const RDEDG_COLOR = "#d62728";
-const RDCOMPT_COLOR = "#1f77b4";
 const CASING_COLOR = "#ffffff";
 
 const archive = new PMTiles(GSI_OPTIMAL_BVMAP_PMTILES);
@@ -25,6 +27,8 @@ registerMvtUnderzoomProtocol(maplibregl, {
   sourceZoom: SOURCE_ZOOM,
   readTile: pmtilesTileReader(archive),
   sourceLayers: [...SOURCE_LAYERS],
+  dissolveSeams: true,
+  dissolveSeamsLayers: ["BldA"],
 });
 
 const lineWidth = (
@@ -56,6 +60,8 @@ const map = new maplibregl.Map({
         ],
         tileSize: 256,
         maxzoom: 18,
+        attribution:
+          '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院</a>',
       },
       "bvmap-lines": {
         type: "vector",
@@ -71,29 +77,27 @@ const map = new maplibregl.Map({
         id: "gsi-pale",
         type: "raster",
         source: "gsi-pale",
-        paint: { "raster-opacity": 0.45 },
       },
       {
-        id: "rdcompt-casing",
-        type: "line",
+        id: "blda-fill",
+        type: "fill",
         source: "bvmap-lines",
-        "source-layer": "RdCompt",
+        "source-layer": "BldA",
         minzoom: DISPLAY_MIN_ZOOM,
         paint: {
-          "line-color": CASING_COLOR,
-          "line-width": lineWidth(3, 5),
-          "line-opacity": 0.95,
+          "fill-color": BLDA_FILL,
+          "fill-opacity": 0.35,
         },
       },
       {
-        id: "rdcompt",
+        id: "blda-outline",
         type: "line",
         source: "bvmap-lines",
-        "source-layer": "RdCompt",
+        "source-layer": "BldA",
         minzoom: DISPLAY_MIN_ZOOM,
         paint: {
-          "line-color": RDCOMPT_COLOR,
-          "line-width": lineWidth(1.8, 3),
+          "line-color": BLDA_OUTLINE,
+          "line-width": lineWidth(1.2, 2),
         },
       },
       {
@@ -124,11 +128,6 @@ const map = new maplibregl.Map({
 });
 
 map.addControl(new maplibregl.NavigationControl(), "top-right");
-
-document.getElementById("dim-basemap")?.addEventListener("change", (e) => {
-  const dim = (e.target as HTMLInputElement).checked;
-  map.setPaintProperty("gsi-pale", "raster-opacity", dim ? 0.45 : 1);
-});
 
 map.on("load", () => {
   const status = document.getElementById("status");
