@@ -1,5 +1,5 @@
 ﻿import { VectorTile } from "@mapbox/vector-tile";
-import Protobuf from "pbf";
+import { PbfReader } from "pbf";
 import { describe, expect, it } from "vitest";
 import { lineTileMvt } from "./helpers/mvt-fixture.js";
 import { buildUnderzoomMvt } from "../src/retile.js";
@@ -9,7 +9,7 @@ function countLayerFeatures(
   data: Uint8Array,
   layerName: string,
 ): number {
-  const vt = new VectorTile(new Protobuf(data.buffer));
+  const vt = new VectorTile(new PbfReader(data));
   const layer = vt.layers[layerName];
   return layer ? layer.length : 0;
 }

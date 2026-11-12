@@ -1,5 +1,5 @@
 import { VectorTile } from "@mapbox/vector-tile";
-import Protobuf from "pbf";
+import { PbfReader } from "pbf";
 import vtpbf from "vt-pbf";
 import { describe, expect, it, vi } from "vitest";
 
@@ -68,7 +68,7 @@ describe("mergeChildMvtTiles onTileError", () => {
     );
 
     expect(errors.length).toBe(1);
-    const vt = new VectorTile(new Protobuf(out.buffer));
+    const vt = new VectorTile(new PbfReader(out));
     expect(vt.layers.roads?.length).toBe(1);
   });
 });

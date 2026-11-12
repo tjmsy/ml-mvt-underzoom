@@ -5,7 +5,7 @@
  */
 import { PMTiles } from "pmtiles";
 import { VectorTile } from "@mapbox/vector-tile";
-import Protobuf from "pbf";
+import { PbfReader } from "pbf";
 import { buildUnderzoomMvt } from "../dist/retile.js";
 import { pmtilesTileReader } from "../dist/readers/index.js";
 import { childTilesForParent } from "../dist/tile-math.js";
@@ -27,7 +27,7 @@ for (const [z, x, y] of TILES) {
   for (const c of children) {
     const raw = await readTile(c.z, c.x, c.y);
     if (!raw) continue;
-    const vt = new VectorTile(new Protobuf(raw));
+    const vt = new VectorTile(new PbfReader(raw));
     childTotal += vt.layers.RdEdg?.length ?? 0;
     childTotal += vt.layers.RdCompt?.length ?? 0;
   }
@@ -43,7 +43,7 @@ for (const [z, x, y] of TILES) {
   });
   const ms = performance.now() - t0;
 
-  const merged = new VectorTile(new Protobuf(out.buffer));
+  const merged = new VectorTile(new PbfReader(out));
   const mergedTotal =
     (merged.layers.RdEdg?.length ?? 0) + (merged.layers.RdCompt?.length ?? 0);
 

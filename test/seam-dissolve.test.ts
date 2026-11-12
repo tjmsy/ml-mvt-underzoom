@@ -1,5 +1,5 @@
 import { VectorTile } from "@mapbox/vector-tile";
-import Protobuf from "pbf";
+import { PbfReader } from "pbf";
 import { describe, expect, it } from "vitest";
 import { polygonTileMvt } from "./helpers/mvt-fixture.js";
 import {
@@ -28,7 +28,7 @@ describe("dissolvePolygonsAtSeams", () => {
       ],
       { id: 1 },
     );
-    const vt = new VectorTile(new Protobuf(tile.buffer));
+    const vt = new VectorTile(new PbfReader(tile));
     expect(vt.layers.bld.feature(0).properties).toEqual({ id: 1 });
     const ring = vt.layers.bld.feature(0).loadGeometry()[0].map((p) => ({
       x: p.x,
@@ -204,7 +204,7 @@ describe("dissolvePolygonsAtSeams", () => {
       relX: number,
       relY: number,
     ) {
-      const tile = new VectorTile(new Protobuf(tileBytes.buffer));
+      const tile = new VectorTile(new PbfReader(tileBytes));
       const feature = tile.layers.bld.feature(0);
       const rawGeometry = feature.loadGeometry();
       const offsetX = relX * cell;

@@ -1,11 +1,8 @@
 import { VectorTile } from "@mapbox/vector-tile";
-import Protobuf from "pbf";
+import { PbfReader } from "pbf";
 import vtpbf from "vt-pbf";
 import { toArrayBuffer, toOwnedUint8Array } from "./buffer.js";
-import {
-  DEFAULT_MVT_BUFFER,
-  DEFAULT_MVT_EXTENT,
-} from "./mvt-constants.js";
+import { DEFAULT_MVT_BUFFER, DEFAULT_MVT_EXTENT } from "./mvt-constants.js";
 import {
   childClipBounds,
   clipLineToBounds,
@@ -18,9 +15,10 @@ import {
 import { dissolvePolygonsAtSeams } from "./seam-dissolve.js";
 import type { TileCoord } from "./types.js";
 
-const EMPTY_PROPERTIES = Object.freeze(
-  Object.create(null),
-) as Record<string, unknown>;
+const EMPTY_PROPERTIES = Object.freeze(Object.create(null)) as Record<
+  string,
+  unknown
+>;
 
 /** MVT feature type constants. */
 const MVT_POINT = 1;
@@ -52,10 +50,7 @@ export type MergeChildMvtOptions = {
   onTileError?: (error: unknown, coord: TileCoord) => void;
 };
 
-function shouldKeepLayer(
-  layerName: string,
-  sourceLayers?: string[],
-): boolean {
+function shouldKeepLayer(layerName: string, sourceLayers?: string[]): boolean {
   if (!sourceLayers || sourceLayers.length === 0) return true;
   return sourceLayers.includes(layerName);
 }
@@ -165,7 +160,7 @@ export function mergeChildMvtTiles(
     if (!child.buffer || child.buffer.byteLength === 0) continue;
 
     try {
-      const tile = new VectorTile(new Protobuf(toArrayBuffer(child.buffer)));
+      const tile = new VectorTile(new PbfReader(toArrayBuffer(child.buffer)));
       const layerNames = Object.keys(tile.layers);
 
       const offsetX = child.relX * cellExtent;
