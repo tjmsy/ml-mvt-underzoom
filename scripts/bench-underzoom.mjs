@@ -48,6 +48,14 @@ for (const [z, x, y] of TILES) {
     (merged.layers.RdEdg?.length ?? 0) + (merged.layers.RdCompt?.length ?? 0);
 
   console.log(
-    JSON.stringify({ z, x, y, childTotal, mergedTotal, delta: mergedTotal - childTotal, ms: Math.round(ms) }),
+    JSON.stringify({
+      z,
+      x,
+      y,
+      childTotal,
+      mergedTotal,
+      delta: mergedTotal - childTotal,
+      ms: Math.round(ms),
+    })
   );
 }

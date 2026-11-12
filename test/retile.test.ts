@@ -5,10 +5,7 @@ import { lineTileMvt } from "./helpers/mvt-fixture.js";
 import { buildUnderzoomMvt } from "../src/retile.js";
 import type { TileReader } from "../src/types.js";
 
-function countLayerFeatures(
-  data: Uint8Array,
-  layerName: string,
-): number {
+function countLayerFeatures(data: Uint8Array, layerName: string): number {
   const vt = new VectorTile(new PbfReader(data));
   const layer = vt.layers[layerName];
   return layer ? layer.length : 0;
@@ -61,7 +58,7 @@ describe("buildUnderzoomMvt", () => {
     for (const child of children) {
       tiles.set(
         `${child.z}/${child.x}/${child.y}`,
-        horizontalLineTile("RdEdg"),
+        horizontalLineTile("RdEdg")
       );
     }
 
@@ -106,7 +103,7 @@ describe("buildUnderzoomMvt", () => {
         sourceZoom: 16,
         readTile: async () => new Uint8Array([1]),
         signal: controller.signal,
-      }),
+      })
     ).rejects.toMatchObject({ name: "AbortError" });
   });
 });

@@ -20,7 +20,7 @@ export function childTilesForParent(
   parentZ: number,
   parentX: number,
   parentY: number,
-  childZ: number,
+  childZ: number
 ): TileCoord[] {
   if (childZ < parentZ) {
     throw new Error(`childZ (${childZ}) must be >= parentZ (${parentZ})`);

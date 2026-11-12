@@ -8,7 +8,10 @@ import {
   normalizeRing,
   type TilePoint,
 } from "../src/tile-clip.js";
-import { internalSeamLines, dissolvePolygonsAtSeams } from "../src/seam-dissolve.js";
+import {
+  internalSeamLines,
+  dissolvePolygonsAtSeams,
+} from "../src/seam-dissolve.js";
 
 describe("internalSeamLines", () => {
   it("returns seam at 2048 for 2x2 merge into extent 4096", () => {
@@ -26,14 +29,17 @@ describe("dissolvePolygonsAtSeams", () => {
         { x: 4096, y: 2200 },
         { x: 3600, y: 2200 },
       ],
-      { id: 1 },
+      { id: 1 }
     );
     const vt = new VectorTile(new PbfReader(tile));
     expect(vt.layers.bld.feature(0).properties).toEqual({ id: 1 });
-    const ring = vt.layers.bld.feature(0).loadGeometry()[0].map((p) => ({
-      x: p.x,
-      y: p.y,
-    }));
+    const ring = vt.layers.bld
+      .feature(0)
+      .loadGeometry()[0]
+      .map((p) => ({
+        x: p.x,
+        y: p.y,
+      }));
     expect(ring.slice(0, 4)).toEqual([
       { x: 3600, y: 1800 },
       { x: 4096, y: 1800 },
@@ -125,7 +131,7 @@ describe("dissolvePolygonsAtSeams", () => {
     function clipChildRing(
       ring: { x: number; y: number }[],
       relX: number,
-      relY: number,
+      relY: number
     ) {
       const cell = extent / scale;
       const offsetX = relX * cell;
@@ -147,7 +153,7 @@ describe("dissolvePolygonsAtSeams", () => {
           { x: 3600, y: 2200 },
         ],
         0,
-        0,
+        0
       ),
       properties: { id: 1 },
       relX: 0,
@@ -162,14 +168,16 @@ describe("dissolvePolygonsAtSeams", () => {
           { x: 0, y: 2200 },
         ],
         1,
-        0,
+        0
       ),
       properties: { id: 1 },
       relX: 1,
       relY: 0,
     };
 
-    expect(dissolvePolygonsAtSeams([left, right], scale, extent)).toHaveLength(1);
+    expect(dissolvePolygonsAtSeams([left, right], scale, extent)).toHaveLength(
+      1
+    );
   });
 
   it("dissolves child MVT features after the same transform and clip as merge", () => {
@@ -181,7 +189,7 @@ describe("dissolvePolygonsAtSeams", () => {
         { x: 4096, y: 2200 },
         { x: 3600, y: 2200 },
       ],
-      { id: 1 },
+      { id: 1 }
     );
     const rightTile = polygonTileMvt(
       "bld",
@@ -191,7 +199,7 @@ describe("dissolvePolygonsAtSeams", () => {
         { x: 500, y: 2200 },
         { x: 0, y: 2200 },
       ],
-      { id: 1 },
+      { id: 1 }
     );
 
     const scale = 2;
@@ -202,7 +210,7 @@ describe("dissolvePolygonsAtSeams", () => {
     function mergeChildPolygon(
       tileBytes: Uint8Array<ArrayBuffer>,
       relX: number,
-      relY: number,
+      relY: number
     ) {
       const tile = new VectorTile(new PbfReader(tileBytes));
       const feature = tile.layers.bld.feature(0);
@@ -214,7 +222,7 @@ describe("dissolvePolygonsAtSeams", () => {
         ring.map((pt) => ({
           x: Math.round(pt.x / scale + offsetX),
           y: Math.round(pt.y / scale + offsetY),
-        })),
+        }))
       );
       const clipped: TilePoint[][] = [];
       for (const ring of transformed) {
@@ -242,7 +250,7 @@ describe("dissolvePolygonsAtSeams", () => {
         minY: Math.min(acc.minY, p.y),
         maxY: Math.max(acc.maxY, p.y),
       }),
-      { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity },
+      { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity }
     );
     const rightBbox = halves[1].geometry[0].reduce(
       (acc, p) => ({
@@ -251,10 +259,15 @@ describe("dissolvePolygonsAtSeams", () => {
         minY: Math.min(acc.minY, p.y),
         maxY: Math.max(acc.maxY, p.y),
       }),
-      { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity },
+      { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity }
     );
     expect(leftBbox).toEqual({ minX: 1800, maxX: 2048, minY: 900, maxY: 1100 });
-    expect(rightBbox).toEqual({ minX: 2048, maxX: 2298, minY: 900, maxY: 1100 });
+    expect(rightBbox).toEqual({
+      minX: 2048,
+      maxX: 2298,
+      minY: 900,
+      maxY: 1100,
+    });
     expect(halves[0].properties).toEqual(halves[1].properties);
     expect(dissolvePolygonsAtSeams(halves, scale, extent)).toHaveLength(1);
   });

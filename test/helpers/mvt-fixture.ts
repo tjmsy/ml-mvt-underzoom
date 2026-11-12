@@ -9,7 +9,7 @@ function loadSelfGeometry(this: { geometry: unknown }) {
 export function lineTileMvt(
   layerName: string,
   points: { x: number; y: number }[],
-  properties: Record<string, unknown> = { vt_code: 2201 },
+  properties: Record<string, unknown> = { vt_code: 2201 }
 ): Uint8Array<ArrayBuffer> {
   const layer = {
     name: layerName,
@@ -38,7 +38,7 @@ export function lineTileMvt(
 export function polygonTileMvt(
   layerName: string,
   ring: { x: number; y: number }[],
-  properties: Record<string, unknown> = { vt_code: 3101 },
+  properties: Record<string, unknown> = { vt_code: 3101 }
 ): Uint8Array<ArrayBuffer> {
   const first = ring[0];
   const last = ring[ring.length - 1];

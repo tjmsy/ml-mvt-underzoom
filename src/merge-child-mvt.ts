@@ -57,7 +57,7 @@ function shouldKeepLayer(layerName: string, sourceLayers?: string[]): boolean {
 
 function shouldDissolveLayer(
   layerName: string,
-  dissolveSeamsLayers?: string[],
+  dissolveSeamsLayers?: string[]
 ): boolean {
   if (!dissolveSeamsLayers || dissolveSeamsLayers.length === 0) return false;
   return dissolveSeamsLayers.includes(layerName);
@@ -71,7 +71,7 @@ function transformRing(
   ring: TilePoint[],
   scale: number,
   offsetX: number,
-  offsetY: number,
+  offsetY: number
 ): TilePoint[] {
   const out = new Array(ring.length);
   for (let p = 0; p < ring.length; p++) {
@@ -87,7 +87,7 @@ function transformRing(
 function clipGeometryToChildBounds(
   type: number,
   rings: TilePoint[][],
-  bounds: ReturnType<typeof childClipBounds>,
+  bounds: ReturnType<typeof childClipBounds>
 ): TilePoint[][] {
   if (type === MVT_POINT) {
     const pt = rings[0]?.[0];
@@ -129,7 +129,7 @@ function clipGeometryToChildBounds(
  */
 export function mergeChildMvtTiles(
   childTiles: ChildMvtTile[],
-  options: MergeChildMvtOptions,
+  options: MergeChildMvtOptions
 ): Uint8Array<ArrayBuffer> {
   const {
     displayZ,
@@ -145,7 +145,7 @@ export function mergeChildMvtTiles(
   const zoomDiff = sourceZoom - displayZ;
   if (zoomDiff <= 0) {
     throw new Error(
-      `sourceZoom (${sourceZoom}) must be greater than displayZ (${displayZ})`,
+      `sourceZoom (${sourceZoom}) must be greater than displayZ (${displayZ})`
     );
   }
 
@@ -170,7 +170,7 @@ export function mergeChildMvtTiles(
         child.relY,
         scale,
         extent,
-        buffer,
+        buffer
       );
 
       for (let l = 0; l < layerNames.length; l++) {
@@ -206,14 +206,14 @@ export function mergeChildMvtTiles(
               rawGeometry[r],
               scale,
               offsetX,
-              offsetY,
+              offsetY
             );
           }
 
           const clipped = clipGeometryToChildBounds(
             feature.type,
             transformed,
-            clipBounds,
+            clipBounds
           );
           if (clipped.length === 0) continue;
 
@@ -273,7 +273,7 @@ export function mergeChildMvtTiles(
           relY: feature.relY ?? 0,
         })),
         scale,
-        extent,
+        extent
       );
 
       const dissolvedFeatures: MergedFeature[] = dissolved.map((feature) => ({

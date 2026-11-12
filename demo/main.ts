@@ -33,7 +33,7 @@ registerMvtUnderzoomProtocol(maplibregl, {
 
 const lineWidth = (
   thin: number,
-  thick: number,
+  thick: number
 ): DataDrivenPropertyValueSpecification<number> => [
   "interpolate",
   ["linear"],
@@ -55,9 +55,7 @@ const map = new maplibregl.Map({
     sources: {
       "gsi-pale": {
         type: "raster",
-        tiles: [
-          "https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
-        ],
+        tiles: ["https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png"],
         tileSize: 256,
         maxzoom: 18,
         attribution:

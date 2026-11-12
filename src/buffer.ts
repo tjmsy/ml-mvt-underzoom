@@ -8,7 +8,7 @@ export function toArrayBuffer(data: ArrayBuffer | Uint8Array): ArrayBuffer {
 
 /** Return an owned Uint8Array, copying when the source is a subarray/view. */
 export function toOwnedUint8Array(
-  data: ArrayBuffer | Uint8Array,
+  data: ArrayBuffer | Uint8Array
 ): Uint8Array<ArrayBuffer> {
   if (data instanceof ArrayBuffer) {
     return new Uint8Array(data);

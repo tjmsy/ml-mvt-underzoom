@@ -10,7 +10,7 @@ export type Bbox = [number, number, number, number];
 export type TileReader = (
   z: number,
   x: number,
-  y: number,
+  y: number
 ) => Promise<ArrayBuffer | Uint8Array | null | undefined>;
 
 export type BuildUnderzoomMvtOptions = {
@@ -62,6 +62,6 @@ export type PmtilesArchive = {
   getZxy: (
     z: number,
     x: number,
-    y: number,
+    y: number
   ) => Promise<{ data: ArrayBuffer | Uint8Array } | null | undefined>;
 };

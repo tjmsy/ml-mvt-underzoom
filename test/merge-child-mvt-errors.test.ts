@@ -37,7 +37,12 @@ function lineTileMvt(layerName: string): Uint8Array {
     _features: [
       {
         type: 2,
-        geometry: [[{ x: 0, y: 0 }, { x: 10, y: 10 }]],
+        geometry: [
+          [
+            { x: 0, y: 0 },
+            { x: 10, y: 10 },
+          ],
+        ],
         properties: {},
         loadGeometry: loadSelfGeometry,
       },
@@ -64,7 +69,7 @@ describe("mergeChildMvtTiles onTileError", () => {
         displayZ: 15,
         sourceZoom: 16,
         onTileError: (error) => errors.push(error),
-      },
+      }
     );
 
     expect(errors.length).toBe(1);

@@ -30,7 +30,7 @@ describe("clipSegmentToBounds", () => {
     const clipped = clipSegmentToBounds(
       { x: 1900, y: 1000 },
       { x: 2200, y: 1000 },
-      bounds,
+      bounds
     );
     expect(clipped).toEqual([
       { x: 1900, y: 1000 },
@@ -49,7 +49,7 @@ describe("clipRingToBounds", () => {
         { x: 2100, y: 1100 },
         { x: 1800, y: 1100 },
       ],
-      bounds,
+      bounds
     );
     const xs = ring.map((p) => p.x);
     expect(Math.max(...xs)).toBeLessThanOrEqual(2048);
@@ -83,7 +83,7 @@ describe("closeRing", () => {
         { x: 2048, y: 900 },
         { x: 2048, y: 1100 },
         { x: 1800, y: 1100 },
-      ]),
+      ])
     ).toEqual([
       { x: 1800, y: 900 },
       { x: 2048, y: 900 },

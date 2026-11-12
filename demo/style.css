@@ -68,5 +68,7 @@ body {
 
 .swatch.rdedg {
   background: #d62728;
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #d62728;
+  box-shadow:
+    0 0 0 1px #fff,
+    0 0 0 2px #d62728;
 }

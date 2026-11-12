@@ -17,7 +17,7 @@ export function childClipBounds(
   relY: number,
   scale: number,
   extent: number,
-  buffer: number,
+  buffer: number
 ): TileClipBounds {
   const cell = extent / scale;
   return {
@@ -61,7 +61,7 @@ function intersect(
   p1: TilePoint,
   p2: TilePoint,
   edge: Edge,
-  b: TileClipBounds,
+  b: TileClipBounds
 ): TilePoint {
   switch (edge) {
     case "left":
@@ -78,7 +78,7 @@ function intersect(
 /** Sutherland–Hodgman clip of a closed or open ring to an axis-aligned box. */
 export function clipRingToBounds(
   ring: TilePoint[],
-  bounds: TileClipBounds,
+  bounds: TileClipBounds
 ): TilePoint[] {
   if (ring.length === 0) return [];
 
@@ -123,7 +123,7 @@ function outcode(p: TilePoint, b: TileClipBounds): number {
 export function clipSegmentToBounds(
   a: TilePoint,
   b: TilePoint,
-  bounds: TileClipBounds,
+  bounds: TileClipBounds
 ): [TilePoint, TilePoint] | null {
   let x0 = a.x;
   let y0 = a.y;
@@ -173,7 +173,7 @@ export function clipSegmentToBounds(
 /** Clip a line ring (open polyline) to bounds; may return multiple segments. */
 export function clipLineToBounds(
   line: TilePoint[],
-  bounds: TileClipBounds,
+  bounds: TileClipBounds
 ): TilePoint[][] {
   if (line.length < 2) return [];
 

@@ -31,6 +31,7 @@
   ],
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "format": "prettier --write .",
     "test": "vitest run",
     "test:watch": "vitest",
     "demo": "vite",
@@ -60,6 +61,7 @@
     "@types/node": "^26.6.6",
     "maplibre-gl": "^6.18.0",
     "pmtiles": "^4.5.0",
+    "prettier": "^3.10.1",
     "rimraf": "^6.1.4",
     "typescript": "^7.0.2",
     "vite": "^8.3.8",

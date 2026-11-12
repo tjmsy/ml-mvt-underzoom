@@ -1,8 +1,5 @@
 ﻿import { toOwnedUint8Array } from "./buffer.js";
-import {
-  DEFAULT_MVT_BUFFER,
-  DEFAULT_MVT_EXTENT,
-} from "./mvt-constants.js";
+import { DEFAULT_MVT_BUFFER, DEFAULT_MVT_EXTENT } from "./mvt-constants.js";
 import { mergeChildMvtTiles } from "./merge-child-mvt.js";
 import { childTilesForParent } from "./tile-math.js";
 import type { BuildUnderzoomMvtOptions } from "./types.js";
@@ -18,7 +15,7 @@ function throwIfAborted(signal?: AbortSignal): void {
  * When `z >= sourceZoom`, returns the source tile unchanged (pass-through).
  */
 export async function buildUnderzoomMvt(
-  options: BuildUnderzoomMvtOptions,
+  options: BuildUnderzoomMvtOptions
 ): Promise<Uint8Array<ArrayBuffer>> {
   const {
     z,
@@ -39,7 +36,7 @@ export async function buildUnderzoomMvt(
 
   if (z > sourceZoom) {
     throw new Error(
-      `display zoom ${z} is above sourceZoom ${sourceZoom}; overzoom is handled by MapLibre`,
+      `display zoom ${z} is above sourceZoom ${sourceZoom}; overzoom is handled by MapLibre`
     );
   }
 
@@ -64,7 +61,7 @@ export async function buildUnderzoomMvt(
         relY: child.y - y * scale,
         buffer: raw,
       };
-    }),
+    })
   );
 
   return mergeChildMvtTiles(childTiles, {

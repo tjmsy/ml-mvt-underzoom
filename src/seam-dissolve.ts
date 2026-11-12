@@ -8,7 +8,10 @@ export type InternalSeams = {
 };
 
 /** Internal merge seam coordinates in parent tile space (not parent exterior). */
-export function internalSeamLines(scale: number, extent: number): InternalSeams {
+export function internalSeamLines(
+  scale: number,
+  extent: number
+): InternalSeams {
   const x: number[] = [];
   const y: number[] = [];
   if (scale <= 1) return { x, y };
@@ -40,7 +43,7 @@ type Bbox = {
 
 function ringsToPolygon(rings: TilePoint[][]): Polygon {
   return rings.map((ring) =>
-    normalizeRing(ring).map((p): [number, number] => [p.x, p.y]),
+    normalizeRing(ring).map((p): [number, number] => [p.x, p.y])
   );
 }
 
@@ -48,12 +51,12 @@ function multiPolygonToFeatures(
   multi: MultiPolygon,
   properties: Record<string, unknown>,
   relX: number,
-  relY: number,
+  relY: number
 ): PolygonFeatureLike[] {
   const features: PolygonFeatureLike[] = [];
   for (const polygon of multi) {
     const rings = polygon.map((ring) =>
-      ring.map((p) => ({ x: Math.round(p[0]), y: Math.round(p[1]) })),
+      ring.map((p) => ({ x: Math.round(p[0]), y: Math.round(p[1]) }))
     );
     if (rings.length > 0 && rings[0].length >= 3) {
       features.push({ geometry: rings, properties, relX, relY });
@@ -88,12 +91,15 @@ function propKey(properties: Record<string, unknown>): string {
 
 function spansOverlap(
   a: { min: number; max: number },
-  b: { min: number; max: number },
+  b: { min: number; max: number }
 ): boolean {
   return a.min <= b.max && b.min <= a.max;
 }
 
-function verticalSeamSpan(ring: TilePoint[], seamX: number): { min: number; max: number } | null {
+function verticalSeamSpan(
+  ring: TilePoint[],
+  seamX: number
+): { min: number; max: number } | null {
   let min = Infinity;
   let max = -Infinity;
   let found = false;
@@ -110,7 +116,10 @@ function verticalSeamSpan(ring: TilePoint[], seamX: number): { min: number; max:
   return found ? { min, max } : null;
 }
 
-function horizontalSeamSpan(ring: TilePoint[], seamY: number): { min: number; max: number } | null {
+function horizontalSeamSpan(
+  ring: TilePoint[],
+  seamY: number
+): { min: number; max: number } | null {
   let min = Infinity;
   let max = -Infinity;
   let found = false;
@@ -130,7 +139,7 @@ function horizontalSeamSpan(ring: TilePoint[], seamY: number): { min: number; ma
 function ringsOverlapOnVerticalSeam(
   geomA: TilePoint[][],
   geomB: TilePoint[][],
-  seamX: number,
+  seamX: number
 ): boolean {
   for (const ringA of geomA) {
     const spanA = verticalSeamSpan(ringA, seamX);
@@ -146,7 +155,7 @@ function ringsOverlapOnVerticalSeam(
 function ringsOverlapOnHorizontalSeam(
   geomA: TilePoint[][],
   geomB: TilePoint[][],
-  seamY: number,
+  seamY: number
 ): boolean {
   for (const ringA of geomA) {
     const spanA = horizontalSeamSpan(ringA, seamY);
@@ -196,7 +205,7 @@ function hasSeamCandidates(bboxes: Bbox[], seams: InternalSeams): boolean {
 function pushBucket(
   buckets: Map<string, number[]>,
   key: string,
-  index: number,
+  index: number
 ): void {
   const bucket = buckets.get(key);
   if (bucket) bucket.push(index);
@@ -210,7 +219,7 @@ function pushBucket(
 export function dissolvePolygonsAtSeams(
   features: PolygonFeatureLike[],
   scale: number,
-  extent: number,
+  extent: number
 ): PolygonFeatureLike[] {
   if (features.length <= 1 || scale <= 1) return features;
 
@@ -248,7 +257,7 @@ export function dissolvePolygonsAtSeams(
             ringsOverlapOnVerticalSeam(
               features[li].geometry,
               features[ri].geometry,
-              seamX,
+              seamX
             )
           ) {
             uf.union(li, ri);
@@ -283,7 +292,7 @@ export function dissolvePolygonsAtSeams(
             ringsOverlapOnHorizontalSeam(
               features[ti].geometry,
               features[bi].geometry,
-              seamY,
+              seamY
             )
           ) {
             uf.union(ti, bi);
@@ -317,11 +326,16 @@ export function dissolvePolygonsAtSeams(
     for (let k = 1; k < indices.length; k++) {
       merged = polygonClipping.union(
         merged,
-        ringsToPolygon(features[indices[k]].geometry),
+        ringsToPolygon(features[indices[k]].geometry)
       );
     }
     out.push(
-      ...multiPolygonToFeatures(merged, features[indices[0]].properties, relX, relY),
+      ...multiPolygonToFeatures(
+        merged,
+        features[indices[0]].properties,
+        relX,
+        relY
+      )
     );
   }
 

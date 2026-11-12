@@ -1,11 +1,17 @@
 import { toArrayBuffer } from "../buffer.js";
-import type { PmtilesArchive, TileReader, XyzTileReaderOptions } from "../types.js";
+import type {
+  PmtilesArchive,
+  TileReader,
+  XyzTileReaderOptions,
+} from "../types.js";
 
 /** Build a TileReader from an XYZ URL template with `{z}` `{x}` `{y}` placeholders. */
 export function xyzTileReader(options: XyzTileReaderOptions): TileReader {
   const fetchFn = options.fetch ?? globalThis.fetch;
   if (!fetchFn) {
-    throw new Error("xyzTileReader requires fetch (pass options.fetch in Node)");
+    throw new Error(
+      "xyzTileReader requires fetch (pass options.fetch in Node)"
+    );
   }
 
   return async (z, x, y) => {
@@ -33,10 +39,7 @@ export function pmtilesTileReader(archive: PmtilesArchive): TileReader {
  * Useful when adjacent parent tiles share child source tiles during pan.
  */
 export function cachedTileReader(readTile: TileReader): TileReader {
-  const cache = new Map<
-    string,
-    ReturnType<TileReader>
-  >();
+  const cache = new Map<string, ReturnType<TileReader>>();
 
   return (z, x, y) => {
     const key = `${z}/${x}/${y}`;

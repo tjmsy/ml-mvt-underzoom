@@ -6,8 +6,8 @@ export type MaplibreWithProtocol = {
     scheme: string,
     loadFn: (
       params: { url: string },
-      abortController?: AbortController,
-    ) => Promise<{ data: ArrayBuffer }>,
+      abortController?: AbortController
+    ) => Promise<{ data: ArrayBuffer }>
   ) => void;
 };
 
@@ -15,7 +15,7 @@ const registeredProtocols = new Set<string>();
 
 function parseProtocolUrl(
   protocol: string,
-  url: string,
+  url: string
 ): { z: number; x: number; y: number } {
   const re = new RegExp(`^${protocol}:\\/\\/(\\d+)\\/(\\d+)\\/(\\d+)`);
   const match = re.exec(url);
@@ -37,7 +37,7 @@ function parseProtocolUrl(
  */
 export function registerMvtUnderzoomProtocol(
   maplibregl: MaplibreWithProtocol,
-  options: RegisterMvtUnderzoomProtocolOptions,
+  options: RegisterMvtUnderzoomProtocolOptions
 ): string {
   const protocol = options.protocol ?? "mvt-underzoom";
   if (!registeredProtocols.has(protocol)) {
@@ -66,7 +66,7 @@ export function registerMvtUnderzoomProtocol(
           ? data.buffer
           : data.buffer.slice(
               data.byteOffset,
-              data.byteOffset + data.byteLength,
+              data.byteOffset + data.byteLength
             );
       return { data: bytes };
     });

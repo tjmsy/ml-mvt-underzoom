@@ -28,7 +28,7 @@ describe("mergeChildMvtTiles", () => {
         { coord: { z: 16, x: 0, y: 0 }, relX: 0, relY: 0, buffer: null },
         { coord: { z: 16, x: 1, y: 0 }, relX: 1, relY: 0, buffer: null },
       ],
-      { displayZ: 15, sourceZoom: 16 },
+      { displayZ: 15, sourceZoom: 16 }
     );
     expect(out.byteLength).toBe(0);
   });
@@ -41,7 +41,7 @@ describe("mergeChildMvtTiles", () => {
 
     const out = mergeChildMvtTiles(
       [{ coord: { z: 16, x: 0, y: 0 }, relX: 0, relY: 0, buffer: child }],
-      { displayZ: 15, sourceZoom: 16, sourceLayers: ["test"] },
+      { displayZ: 15, sourceZoom: 16, sourceLayers: ["test"] }
     );
 
     expect(out.byteLength).toBeGreaterThan(0);
@@ -58,7 +58,7 @@ describe("mergeChildMvtTiles", () => {
 
     const out = mergeChildMvtTiles(
       [{ coord: { z: 16, x: 1, y: 0 }, relX: 1, relY: 0, buffer: child }],
-      { displayZ: 15, sourceZoom: 16, sourceLayers: ["test"] },
+      { displayZ: 15, sourceZoom: 16, sourceLayers: ["test"] }
     );
 
     const coords = firstLineCoords(out);
@@ -81,7 +81,7 @@ describe("mergeChildMvtTiles", () => {
         { coord: { z: 16, x: 0, y: 0 }, relX: 0, relY: 0, buffer: childA },
         { coord: { z: 16, x: 1, y: 0 }, relX: 1, relY: 0, buffer: childB },
       ],
-      { displayZ: 15, sourceZoom: 16, sourceLayers: ["keep"] },
+      { displayZ: 15, sourceZoom: 16, sourceLayers: ["keep"] }
     );
 
     const vt = new VectorTile(new PbfReader(out));
@@ -97,7 +97,7 @@ describe("mergeChildMvtTiles", () => {
 
     const out = mergeChildMvtTiles(
       [{ coord: { z: 16, x: 0, y: 0 }, relX: 0, relY: 0, buffer: child }],
-      { displayZ: 14, sourceZoom: 16, sourceLayers: ["test"] },
+      { displayZ: 14, sourceZoom: 16, sourceLayers: ["test"] }
     );
 
     const coords = firstLineCoords(out);
@@ -123,7 +123,7 @@ describe("mergeChildMvtTiles", () => {
           { x: 20, y: 20 },
         ]),
       })),
-      { displayZ: 15, sourceZoom: 16, sourceLayers: ["roads"] },
+      { displayZ: 15, sourceZoom: 16, sourceLayers: ["roads"] }
     );
 
     const vt = new VectorTile(new PbfReader(out));
@@ -137,7 +137,7 @@ describe("mergeChildMvtTiles", () => {
     ]);
     const out = mergeChildMvtTiles(
       [{ coord: { z: 16, x: 0, y: 0 }, relX: 0, relY: 0, buffer: child }],
-      { displayZ: 15, sourceZoom: 16 },
+      { displayZ: 15, sourceZoom: 16 }
     );
 
     const vt = new VectorTile(new PbfReader(out));
@@ -156,7 +156,7 @@ describe("mergeChildMvtTiles", () => {
 
     const out = mergeChildMvtTiles(
       [{ coord: { z: 16, x: 0, y: 0 }, relX: 0, relY: 0, buffer: left }],
-      { displayZ: 15, sourceZoom: 16, sourceLayers: ["bld"] },
+      { displayZ: 15, sourceZoom: 16, sourceLayers: ["bld"] }
     );
 
     const ring = firstPolygonRing(out);
@@ -174,7 +174,7 @@ describe("mergeChildMvtTiles", () => {
         { x: 4096, y: 2200 },
         { x: 3600, y: 2200 },
       ],
-      { id: 1 },
+      { id: 1 }
     );
     const right = polygonTileMvt(
       "bld",
@@ -184,7 +184,7 @@ describe("mergeChildMvtTiles", () => {
         { x: 500, y: 2200 },
         { x: 0, y: 2200 },
       ],
-      { id: 1 },
+      { id: 1 }
     );
 
     const out = mergeChildMvtTiles(
@@ -198,7 +198,7 @@ describe("mergeChildMvtTiles", () => {
         sourceLayers: ["bld"],
         dissolveSeams: true,
         dissolveSeamsLayers: ["bld"],
-      },
+      }
     );
 
     const merged = new VectorTile(new PbfReader(out));
