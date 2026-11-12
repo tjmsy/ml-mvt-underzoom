@@ -1,6 +1,6 @@
 {
   "name": "ml-mvt-underzoom",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "MapLibre underzoom helper — serve MVT at a lower zoom than third-party PMTiles/XYZ sources provide",
   "type": "module",
   "sideEffects": false,
