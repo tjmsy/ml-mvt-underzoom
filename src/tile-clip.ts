@@ -142,8 +142,8 @@ export function clipSegmentToBounds(
     if (code0 & code1) return null;
 
     const out = code0 !== 0 ? code0 : code1;
-    let x = 0;
-    let y = 0;
+    let x: number;
+    let y: number;
     if (out & 8) {
       x = x0 + ((x1 - x0) * (bounds.maxY - y0)) / (y1 - y0);
       y = bounds.maxY;
